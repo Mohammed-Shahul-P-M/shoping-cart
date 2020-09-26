@@ -7,6 +7,8 @@ var usersRouter = require('./routes/userroute');
 var adminRouter = require('./routes/adminroute');
 var hbs = require('express-handlebars')
 var fileUpload = require('express-fileupload')
+const db = require('./config/connection')
+
 var app = express();
 
 // view engine setup
@@ -24,6 +26,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
+
+db.connect((err) => {
+  if (err) console.log('connection faild' + err);
+  else console.log('connected to database successfully');
+})
 
 app.use('/', usersRouter);
 app.use('/admin', adminRouter);
