@@ -27,7 +27,11 @@ let products = [
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  res.render('admin/view-products', { products, admin: true })
+  productHelper.getAllProduct().then((products) => {
+
+    res.render('admin/view-products', { products, admin: true })
+  })
+
 });
 
 router.get('/add-product', (req, res) => {
